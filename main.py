@@ -56,6 +56,6 @@ class myApp(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = myApp(message, speed=10, start_point=0)
-    ads = myApp(ads, speed=15, start_point=75)
+    ex = myApp(message, speed=15, start_point=0)
+    ads = myApp(ads, speed=10, start_point=75)
     sys.exit(app.exec_())
