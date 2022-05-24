@@ -16,7 +16,7 @@ class myApp(QWidget):
 
     def init_ui(self):
         self.timer = QTimer(self)
-        self.X = 1500
+        self.X = 2000
         self.Y = 50
         self.FONT_SIZE = 25
 
@@ -24,6 +24,7 @@ class myApp(QWidget):
         self.setGeometry(0, self.start_point, self.X, self.Y)
         self.setStyleSheet("background-color: black")
         self.setWindowFlags(Qt.FramelessWindowHint) # убрать шапку
+        print(self.width())
 
         self.label = QLabel(self.message, self)
         self.label.setStyleSheet('color: white')
