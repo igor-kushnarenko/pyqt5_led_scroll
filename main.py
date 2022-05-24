@@ -3,9 +3,7 @@ from PyQt5.QtWidgets import QWidget, QApplication, QLabel
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QTimer
 
-list_message = ['Добро пожаловать в Отель Довиль!', 'Сегодня вторник, 24 мая.',
-           'В СВЯЗИ С ПОГОДНЫМИ УСЛОВИЯМИ ПРОВЕДЕНИЕ ВЕЧЕРНИХ МЕРОПРИЯТИЙ ПЕРЕНОСИТСЯ НА ТЕРРАСУ МАРИНИ.']
-message = ' '.join(list_message)
+from parser import message
 
 
 class myApp(QWidget):
@@ -14,7 +12,7 @@ class myApp(QWidget):
         self.init_ui()
 
     def init_ui(self):
-        self.SPEED = 5
+        self.SPEED = 10
         self.timer = QTimer(self)
         self.X = 1000
         self.Y = 50
@@ -41,8 +39,8 @@ class myApp(QWidget):
         self.show()
 
     def move_label_left(self):
-        if self.label_x == -(17 * len(message) + self.X):
-            self.label_x = 800
+        if self.label_x == -(15 * len(message) + self.X):
+            self.label_x = self.X - 50
             self.label_x = self.label_x - 1
             self.label.move(self.label_x, self.lable_y)
         else:
