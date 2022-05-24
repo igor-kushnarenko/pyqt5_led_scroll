@@ -19,15 +19,17 @@ class myApp(QWidget):
     def init_ui(self):
         self.SPEED = 5
         self.timer = QTimer(self)
-        self.X = 800
+        self.X = 1000
         self.Y = 50
         self.FONT_SIZE = 25
 
         self.setWindowTitle('Doville news')
-        self.setGeometry(100, 100, 750, 100)
+        self.setGeometry(100, 100, self.X, self.Y)
 
         self.label = QLabel(message, self)
-        self.label.move(self.X, self.Y)
+        self.label_x = self.X - 50
+        self.lable_y = 8
+        self.label.move(self.label_x, self.lable_y)
         self.label.setFont(QFont('Arial', self.FONT_SIZE))
 
         if self.timer.isActive():
@@ -42,13 +44,13 @@ class myApp(QWidget):
         self.show()
 
     def move_label_left(self):
-        if self.X == -(17 * len(message) + 800):
-            self.X = 800
-            self.X = self.X - 1
-            self.label.move(self.X, self.Y)
+        if self.label_x == -(17 * len(message) + self.X):
+            self.label_x = 800
+            self.label_x = self.label_x - 1
+            self.label.move(self.label_x, self.lable_y)
         else:
-            self.X = self.X - 1
-            self.label.move(self.X, self.Y)
+            self.label_x = self.label_x - 1
+            self.label.move(self.label_x, self.lable_y)
 
 
 if __name__ == '__main__':
