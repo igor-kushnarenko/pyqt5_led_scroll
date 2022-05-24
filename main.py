@@ -1,10 +1,7 @@
-#!/usr/bin/python3
-# -*- coding:utf-8 -*-
-
 import sys
-from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QPushButton
-from PyQt5.QtGui import QPainter, QColor, QPen, QBrush, QFont
-from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtWidgets import QWidget, QApplication, QLabel
+from PyQt5.QtGui import QFont
+from PyQt5.QtCore import QTimer
 
 list_message = ['Добро пожаловать в Отель Довиль!', 'Сегодня вторник, 24 мая.',
            'В СВЯЗИ С ПОГОДНЫМИ УСЛОВИЯМИ ПРОВЕДЕНИЕ ВЕЧЕРНИХ МЕРОПРИЯТИЙ ПЕРЕНОСИТСЯ НА ТЕРРАСУ МАРИНИ.']
