@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QWidget, QApplication, QLabel
+from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QMainWindow
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QTimer
 
@@ -8,20 +8,22 @@ from parser import message
 
 class myApp(QWidget):
     def __init__(self):
-        QWidget.__init__(self)
+        QMainWindow.__init__(self)
         self.init_ui()
 
     def init_ui(self):
         self.SPEED = 10
         self.timer = QTimer(self)
-        self.X = 1000
+        self.X = 1500
         self.Y = 50
         self.FONT_SIZE = 25
 
         self.setWindowTitle('Doville news')
         self.setGeometry(100, 100, self.X, self.Y)
+        self.setStyleSheet("background-color: black")
 
         self.label = QLabel(message, self)
+        self.label.setStyleSheet('color: white')
         self.label_x = self.X - 50
         self.lable_y = 8
         self.label.move(self.label_x, self.lable_y)
