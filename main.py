@@ -23,8 +23,7 @@ class myApp(QWidget):
         self.setWindowTitle('Doville news')
         self.setGeometry(0, self.start_point, self.X, self.Y)
         self.setStyleSheet("background-color: black")
-        self.setWindowFlags(Qt.FramelessWindowHint) # убрать шапку
-        print(self.width())
+        self.setWindowFlags(Qt.FramelessWindowHint) # убрали шапку окна
 
         self.label = QLabel(self.message, self)
         self.label.setStyleSheet('color: white')
@@ -42,7 +41,6 @@ class myApp(QWidget):
             self.timer.start(self.SPEED)
             self.timer.timeout.connect(self.move_label_left)
 
-        self.show()
 
     def move_label_left(self):
         if self.label_x == -(15 * len(self.message) + self.X):
@@ -54,8 +52,21 @@ class myApp(QWidget):
             self.label.move(self.label_x, self.lable_y)
 
 
+class UserInterface(QMainWindow):
+    def __init__(self):
+        super(UserInterface, self).__init__()
+        self.init_ui()
+
+    def init_ui(self):
+        pass
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = myApp(message, speed=15, start_point=0)
+    ex.show()
     ads = myApp(ads, speed=10, start_point=75)
+    ads.show()
+    ui = UserInterface()
+    ui.show()
     sys.exit(app.exec_())
