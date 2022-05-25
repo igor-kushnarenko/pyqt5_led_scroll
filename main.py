@@ -41,7 +41,6 @@ class myApp(QWidget):
             self.timer.start(self.SPEED)
             self.timer.timeout.connect(self.move_label_left)
 
-
     def move_label_left(self):
         if self.label_x == -(15 * len(self.message) + self.X):
             self.label_x = self.X - 50
@@ -58,7 +57,12 @@ class UserInterface(QMainWindow):
         self.init_ui()
 
     def init_ui(self):
-        pass
+        self.X = 400
+        self.Y = 100
+        self.setGeometry(300, 300, self.X, self.Y)
+        self.setWindowTitle('Led roll')
+        self.label = QLabel('Led Roll', self)
+        self.label.move(self.X // 2, 20)
 
 
 if __name__ == '__main__':
