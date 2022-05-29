@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QMainWindow
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QTimer, Qt
+from PyQt5 import QtWidgets
 
 from parser import message, ads
 
@@ -55,6 +56,7 @@ class UserInterface(QMainWindow):
     def __init__(self):
         super(UserInterface, self).__init__()
         self.init_ui()
+        self.send_btn()
 
     def init_ui(self):
         self.X = 400
@@ -63,6 +65,15 @@ class UserInterface(QMainWindow):
         self.setWindowTitle('Led roll')
         self.label = QLabel('Led Roll', self)
         self.label.move(self.X // 2, 20)
+
+    def send_btn(self):
+        self.btn = QtWidgets.QPushButton('Отправить', self)
+        self.btn.move(self.X // 2 - 50, 70)
+        self.btn.setFixedSize(120, 22)
+        self.btn.clicked.connect(self.send_message)
+
+    def send_message(self):
+        print('Send message to console.')
 
 
 if __name__ == '__main__':
