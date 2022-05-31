@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QMainWindow
 from PyQt5.QtGui import QFont
-from PyQt5.QtCore import QTimer, Qt
+from PyQt5.QtCore import QTimer, Qt, QRect
 from PyQt5 import QtWidgets
 
 from parser import message, ads
@@ -12,6 +12,7 @@ class myApp(QWidget):
         QMainWindow.__init__(self)
         self.message = message
         self.SPEED = speed
+        self.length_message = len(self.message) * 15
         self.start_point = start_point
         self.init_ui()
 
@@ -43,7 +44,7 @@ class myApp(QWidget):
             self.timer.timeout.connect(self.move_label_left)
 
     def move_label_left(self):
-        if self.label_x == -(15 * len(self.message) + self.X):
+        if self.label_x == -(self.length_message + self.X):
             self.label_x = self.X - 50
             self.label_x = self.label_x - 1
             self.label.move(self.label_x, self.lable_y)
@@ -56,31 +57,45 @@ class UserInterface(QMainWindow):
     def __init__(self):
         super(UserInterface, self).__init__()
         self.init_ui()
-        self.send_btn()
+        self.create_send_btn()
+        self.create_text_field()
+        self.send_command()
 
     def init_ui(self):
         self.X = 400
         self.Y = 100
         self.setGeometry(300, 300, self.X, self.Y)
         self.setWindowTitle('Led roll')
-        self.label = QLabel('Led Roll', self)
-        self.label.move(self.X // 2, 20)
+        text = 'Добавьте объявление'
+        self.label = QLabel(text, self)
+        self.label.move(self.X // 2 - 70, 5)
+        self.label.adjustSize()
 
-    def send_btn(self):
+    def create_send_btn(self):
         self.btn = QtWidgets.QPushButton('Отправить', self)
         self.btn.move(self.X // 2 - 50, 70)
         self.btn.setFixedSize(120, 22)
-        self.btn.clicked.connect(self.send_message)
 
-    def send_message(self):
-        print('Send message to console.')
+    def create_text_field(self):
+        self.lineEdit = QtWidgets.QLineEdit(self)
+        self.lineEdit.setGeometry(QRect(self.X // 2 - 150, self.Y // 2 - 20, 300, 20))
+        self.lineEdit.setText("")
+        self.lineEdit.setObjectName("lineEdit")
+
+    def send_command(self):
+        self.btn.clicked.connect(lambda: self.send_message(self.lineEdit.text()))
+
+    def send_message(self, message):
+        ads.length_message = 15 * len(message)
+        ads.label.setText(message)
+        ads.label.adjustSize()
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = myApp(message, speed=15, start_point=0)
+    ex = myApp(message, speed=10, start_point=0)
     ex.show()
-    ads = myApp(ads, speed=10, start_point=75)
+    ads = myApp('ads', speed=5, start_point=75)
     ads.show()
     ui = UserInterface()
     ui.show()
