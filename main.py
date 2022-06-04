@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QMainWindow
-from PyQt5.QtGui import QFont
-from PyQt5.QtCore import QTimer, Qt, QRect
+from PyQt5.QtGui import QFont, QImage, QPalette, QBrush
+from PyQt5.QtCore import QTimer, Qt, QRect, QSize
 from PyQt5 import QtWidgets
 
 from parser import message, ads
@@ -24,15 +24,21 @@ class myApp(QWidget):
 
         self.setWindowTitle('Doville news')
         self.setGeometry(0, self.start_point, self.X, self.Y)
-        self.setStyleSheet("background-color: black")
+        # self.setStyleSheet("background-color: black")
         self.setWindowFlags(Qt.FramelessWindowHint)  # убрали шапку окна
+
+        wallpaper = QImage("files/wall5.jpg")
+        sImage = wallpaper.scaled(QSize(self.X, self.Y))
+        palette = QPalette()
+        palette.setBrush(QPalette.Window, QBrush(sImage))
+        self.setPalette(palette)
 
         self.label = QLabel(self.message, self)
         self.label.setStyleSheet('color: white')
         self.label_x = self.X - 50
         self.lable_y = 8
         self.label.move(self.label_x, self.lable_y)
-        self.label.setFont(QFont('Arial', self.FONT_SIZE))
+        self.label.setFont(QFont('Ubuntu', self.FONT_SIZE))
 
         if self.timer.isActive():
             self.timer.stop()
@@ -93,9 +99,10 @@ class UserInterface(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex_window = myApp(message, speed=10, start_point=0)
-    ex_window.show()
-    ads_window = myApp(ads, speed=5, start_point=75)
+    # ex_window = myApp(message, speed=15, start_point=0)
+    # ex_window.show()
+    # ads_window = myApp(ads.upper(), speed=9, start_point=75)
+    ads_window = myApp(ads.upper(), speed=9, start_point=0)
     ads_window.show()
     ui_window = UserInterface()
     ui_window.show()
