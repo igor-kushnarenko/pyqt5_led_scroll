@@ -25,7 +25,7 @@ class myApp(QWidget):
         self.setWindowTitle('Doville news')
         self.setGeometry(0, self.start_point, self.X, self.Y)
         self.setStyleSheet("background-color: black")
-        self.setWindowFlags(Qt.FramelessWindowHint) # убрали шапку окна
+        self.setWindowFlags(Qt.FramelessWindowHint)  # убрали шапку окна
 
         self.label = QLabel(self.message, self)
         self.label.setStyleSheet('color: white')
@@ -83,20 +83,20 @@ class UserInterface(QMainWindow):
         self.lineEdit.setObjectName("lineEdit")
 
     def send_command(self):
-        self.btn.clicked.connect(lambda: self.send_message(self.lineEdit.text()))
+        self.btn.clicked.connect(lambda: self.send_message(self.lineEdit.text().upper()))
 
     def send_message(self, message):
-        ads.length_message = 15 * len(message)
-        ads.label.setText(message)
-        ads.label.adjustSize()
+        ads_window.length_message = 15 * len(message)
+        ads_window.label.setText(message)
+        ads_window.label.adjustSize()
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = myApp(message, speed=10, start_point=0)
-    ex.show()
-    ads = myApp('ads', speed=5, start_point=75)
-    ads.show()
-    ui = UserInterface()
-    ui.show()
+    ex_window = myApp(message, speed=10, start_point=0)
+    ex_window.show()
+    ads_window = myApp(ads, speed=5, start_point=75)
+    ads_window.show()
+    ui_window = UserInterface()
+    ui_window.show()
     sys.exit(app.exec_())
