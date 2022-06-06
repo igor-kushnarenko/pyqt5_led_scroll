@@ -1,3 +1,4 @@
+import json
 import sys
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QMainWindow
 from PyQt5.QtGui import QFont, QImage, QPalette, QBrush
@@ -69,32 +70,52 @@ class UserInterface(QMainWindow):
 
     def init_ui(self):
         self.X = 400
-        self.Y = 100
+        self.Y = 400
         self.setGeometry(300, 300, self.X, self.Y)
         self.setWindowTitle('Led roll')
         text = 'Добавьте объявление'
         self.label = QLabel(text, self)
-        self.label.move(self.X // 2 - 70, 5)
+        self.label.move(10, 5)
         self.label.adjustSize()
+        self.list_messages_lbl()
+
+    def list_messages_lbl(self):
+        y = 100
+        with open('jdata.json') as file:
+            res = json.load(file)
+            for message in res['ads']:
+                self.m_lbl = QLabel(message, self)
+                self.m_lbl.move(10, y)
+                y += 20
+                self.m_lbl.adjustSize()
 
     def create_send_btn(self):
         self.btn = QtWidgets.QPushButton('Отправить', self)
-        self.btn.move(self.X // 2 - 50, 70)
+        self.btn.move(self.X // 2 - 50, 60)
         self.btn.setFixedSize(120, 22)
 
     def create_text_field(self):
         self.lineEdit = QtWidgets.QLineEdit(self)
-        self.lineEdit.setGeometry(QRect(self.X // 2 - 150, self.Y // 2 - 20, 300, 20))
+        self.lineEdit.setGeometry(QRect(50, 30, 300, 20))
         self.lineEdit.setText("")
         self.lineEdit.setObjectName("lineEdit")
 
     def send_command(self):
-        self.btn.clicked.connect(lambda: self.send_message(self.lineEdit.text().upper()))
+        self.btn.clicked.connect(lambda: self.send_message_to_line(self.lineEdit.text().upper()))
 
-    def send_message(self, message):
+    def send_message_to_line(self, message):
         ads_window.length_message = 15 * len(message)
         ads_window.label.setText(message)
         ads_window.label.adjustSize()
+        self.add_message_to_file(message)
+
+    def add_message_to_file(self, message):
+        with open('jdata.json') as file:
+            res = json.load(file)
+            res['ads'].append(message)
+            print(res['ads'])
+        with open('jdata.json', 'w') as jfile:
+            json.dump(res, jfile)
 
 
 if __name__ == '__main__':
