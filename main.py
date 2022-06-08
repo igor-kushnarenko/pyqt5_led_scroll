@@ -80,6 +80,9 @@ class UserInterface(QMainWindow):
         self.list_messages_lbl()
 
     def list_messages_lbl(self):
+        """
+        Отображение на окне списка сообщений отправленных пользователем в базу.
+        """
         y = 100
         with open('jdata.json') as file:
             res = json.load(file)
@@ -110,6 +113,11 @@ class UserInterface(QMainWindow):
         self.add_message_to_file(message)
 
     def add_message_to_file(self, message):
+        """
+        Добавление сообщений отправленных пользователем в базу.
+        :param message:
+        :return:
+        """
         with open('jdata.json') as file:
             res = json.load(file)
             res['ads'].append(message)
