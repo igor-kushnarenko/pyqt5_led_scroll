@@ -77,20 +77,6 @@ class UserInterface(QMainWindow):
         self.label = QLabel(text, self)
         self.label.move(10, 5)
         self.label.adjustSize()
-        self.list_messages_lbl()
-
-    def list_messages_lbl(self):
-        """
-        Отображение на окне списка сообщений отправленных пользователем в базу.
-        """
-        y = 100
-        with open('jdata.json') as file:
-            res = json.load(file)
-            for message in res['ads']:
-                self.m_lbl = QLabel(message, self)
-                self.m_lbl.move(10, y)
-                y += 20
-                self.m_lbl.adjustSize()
 
     def create_send_btn(self):
         self.btn = QtWidgets.QPushButton('Отправить', self)
@@ -110,28 +96,13 @@ class UserInterface(QMainWindow):
         ads_window.length_message = 15 * len(message)
         ads_window.label.setText(message)
         ads_window.label.adjustSize()
-        self.add_message_to_file(message)
-
-    def add_message_to_file(self, message):
-        """
-        Добавление сообщений отправленных пользователем в базу.
-        :param message:
-        :return:
-        """
-        with open('jdata.json') as file:
-            res = json.load(file)
-            res['ads'].append(message)
-            print(res['ads'])
-        with open('jdata.json', 'w') as jfile:
-            json.dump(res, jfile)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    # ex_window = myApp(message, speed=15, start_point=0)
-    # ex_window.show()
-    # ads_window = myApp(ads.upper(), speed=9, start_point=75)
-    ads_window = myApp(ads.upper(), speed=9, start_point=0)
+    ex_window = myApp(message, speed=15, start_point=0)
+    ex_window.show()
+    ads_window = myApp(ads.upper(), speed=9, start_point=75)
     ads_window.show()
     ui_window = UserInterface()
     ui_window.show()
