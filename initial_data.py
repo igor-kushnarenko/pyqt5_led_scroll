@@ -36,5 +36,10 @@ data = {
     'ads': [],
 }
 
-with open('jdata.json', 'w') as file:
-    json.dump(data, file, indent=4, ensure_ascii=False)
+
+def create_json_data():
+    with open('jdata.json', 'w') as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
+
+
+create_json_data()

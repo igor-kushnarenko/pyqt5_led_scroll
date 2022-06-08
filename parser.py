@@ -1,12 +1,19 @@
 import json
 import locale
+import os
 
 from datetime import datetime
+from initial_data import create_json_data
 
 locale.setlocale(locale.LC_ALL, ('ru_RU', 'UTF-8'))
 
-with open('jdata.json') as file:
-    open_data = json.load(file)
+file_path = "jdata.json"
+
+if os.path.exists(file_path):
+    with open('jdata.json') as file:
+        open_data = json.load(file)
+else:
+    create_json_data()
 
 
 def get_weekday_date():
