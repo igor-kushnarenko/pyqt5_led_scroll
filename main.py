@@ -102,8 +102,10 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex_window = myApp(message, speed=15, start_point=0)
     ex_window.show()
-    ads_window = myApp(ads.upper(), speed=9, start_point=75)
-    ads_window.show()
+
+    if ads:
+        ads_window = myApp(ads.upper(), speed=9, start_point=75)
+        ads_window.show()
     ui_window = UserInterface()
     ui_window.show()
     sys.exit(app.exec_())
