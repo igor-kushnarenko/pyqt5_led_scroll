@@ -28,7 +28,7 @@ class myApp(QWidget):
         # self.setStyleSheet("background-color: black")
         self.setWindowFlags(Qt.FramelessWindowHint)  # убрали шапку окна
 
-        wallpaper = QImage("files/wall5.jpg")
+        wallpaper = QImage("C:\\Users\\honor\\PycharmProjects\\pyqt5_led_scroll\\files\\wall5.jpg")
         sImage = wallpaper.scaled(QSize(self.X, self.Y))
         palette = QPalette()
         palette.setBrush(QPalette.Window, QBrush(sImage))
@@ -104,7 +104,7 @@ if __name__ == '__main__':
     ex_window.show()
 
     if ads:
-        ads_window = myApp(ads.upper(), speed=9, start_point=75)
+        ads_window = myApp(ads.upper(), speed=9, start_point=50)
         ads_window.show()
     ui_window = UserInterface()
     ui_window.show()
