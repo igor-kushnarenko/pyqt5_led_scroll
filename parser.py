@@ -13,7 +13,7 @@ locale.setlocale(locale.LC_ALL, ('ru_RU', 'UTF-8'))
 file_path = "jdata.json"
 
 if os.path.exists(file_path):
-    with open('jdata.json') as file:
+    with open('jdata.json', 'r') as file:
         open_data = json.load(file)
 else:
     create_json_data()
@@ -48,9 +48,9 @@ def get_weekday_date():
 
 
 def get_week_info(week_type, weekday):
-    text = f'РАСПИСАНИЕ: Минидиско - 19:30 | Награждение - 20:00 | ' \
-                f'Детская вечерняя программа: {open_data[week_type][weekday][0]} - 20:15 | ' \
-                f'Взрослая вечерняя программа: {open_data[week_type][weekday][1]} - 21:00 | '
+    text = f'РАСПИСАНИЕ: Награждение - 19:30 | ' \
+                f'Детская вечерняя программа: {open_data[week_type][weekday][0]} - 19:45 | ' \
+                f'Взрослая вечерняя программа: {open_data[week_type][weekday][1]} - 20:30 | '
     return text
 
 
@@ -68,6 +68,7 @@ def get_show():
 list_message = [get_weekday_date(), weather_parser(), get_show()]
 
 # добавляется в ручную, пока
+# todo Объявления будем добавлять в postgresql и работать уже с ней
 list_ads = [
     'Рады видеть вас на наших анимационных мероприятиях!',
 ]

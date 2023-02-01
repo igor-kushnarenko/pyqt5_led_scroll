@@ -38,8 +38,12 @@ data = {
 
 
 def create_json_data():
-    with open('jdata.json', 'w') as file:
-        json.dump(data, file, indent=4)
+    with open('jdata.json', 'w', encoding='utf-8') as file:
+        json.dump(data, file, indent=4, ensure_ascii=True)
+
+
+def create_psql_bd():
+    pass
 
 
 create_json_data()

@@ -22,4 +22,4 @@ def convert_to_srgb(file_path):
                         icc_profile = icc_conv)
 
 
-convert_to_srgb('/home/max/PycharmProjects/pyqt5_led_scroll/files/wall5.jpg')
+convert_to_srgb('C:\\Users\\User\\PycharmProjects\\pyqt5_led_scroll\\files\\wall5.jpg')

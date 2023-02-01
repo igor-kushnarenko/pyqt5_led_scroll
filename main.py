@@ -1,4 +1,3 @@
-import json
 import sys
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QMainWindow
 from PyQt5.QtGui import QFont, QImage, QPalette, QBrush
@@ -25,17 +24,17 @@ class myApp(QWidget):
 
         self.setWindowTitle('Doville news')
         self.setGeometry(0, self.start_point, self.X, self.Y)
-        # self.setStyleSheet("background-color: black")
+        self.setStyleSheet("background-color: black")
         self.setWindowFlags(Qt.FramelessWindowHint)  # убрали шапку окна
 
-        wallpaper = QImage("C:\\Users\\honor\\PycharmProjects\\pyqt5_led_scroll\\files\\wall5.jpg")
-        sImage = wallpaper.scaled(QSize(self.X, self.Y))
-        palette = QPalette()
-        palette.setBrush(QPalette.Window, QBrush(sImage))
-        self.setPalette(palette)
+        # wallpaper = QImage("C:\\Users\\honor\\PycharmProjects\\pyqt5_led_scroll\\files\\wall5.jpg")
+        # sImage = wallpaper.scaled(QSize(self.X, self.Y))
+        # palette = QPalette()
+        # palette.setBrush(QPalette.Window, QBrush(sImage))
+        # self.setPalette(palette)
 
         self.label = QLabel(self.message, self)
-        self.label.setStyleSheet('color: white')
+        self.label.setStyleSheet('color: #085d69')
         self.label_x = self.X - 50
         self.lable_y = 8
         self.label.move(self.label_x, self.lable_y)
