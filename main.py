@@ -6,7 +6,7 @@ from PyQt5 import QtWidgets
 
 from parser import message, ads
 
-from scripts.db_creator import add_message_to_db
+from scripts.db_edit import add_message_to_db
 
 
 class myApp(QWidget):
