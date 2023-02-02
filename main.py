@@ -6,6 +6,8 @@ from PyQt5 import QtWidgets
 
 from parser import message, ads
 
+from scripts.db_creator import add_message_to_db
+
 
 class myApp(QWidget):
     """Класс реализующий бегущую строку"""
@@ -103,6 +105,10 @@ class UserInterface(QMainWindow):
 
     def send_message_to_line(self, message):
         """Метод отправляющий объявление в бегущую строку"""
+        # добавление записи в БД
+        add_message_to_db(message)
+
+        # отправляем сообщение в окно
         ads_window.length_message = 15 * len(message)
         ads_window.label.setText(message)
         ads_window.label.adjustSize()
@@ -111,11 +117,12 @@ class UserInterface(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
-    # реализация окон бегущих строк
+    # реализация окона бегущей строки с готовыми сообщениями
     ledline_window = myApp(message, speed=15, start_point=0)
     ledline_window.show()
 
     if ads:
+        # реализация окона бегущей строки с объявлениями
         ads_window = myApp(ads.upper(), speed=9, start_point=50)
         ads_window.show()
 

@@ -10,11 +10,11 @@ if __name__ == '__main__':
         print(str(ex))
 
 
-def add_message_to_db(is_active, message):
+def add_message_to_db(message):
+    """Функция реализует создание записи в БД"""
     return db_models.LedLine.create(
-        is_active=is_active,
         message=message
     )
 
 
-add_message_to_db(False, 'Открытие сезона 2023!')
+# add_message_to_db(False, 'Открытие сезона 2023!')

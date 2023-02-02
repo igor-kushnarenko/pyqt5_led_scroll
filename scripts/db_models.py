@@ -21,7 +21,7 @@ class BaseModel(peewee.Model):
 
 class LedLine(BaseModel):
     id = peewee.PrimaryKeyField(null=True)
-    is_active = peewee.BooleanField(null=True)
+    is_active = peewee.BooleanField(null=True, default=True)
     message = peewee.TextField()
 
     class Meta:
