@@ -1,16 +1,16 @@
 import json
 import locale
 import os
-
 from datetime import datetime
 
 import pyowm
 
 from initial_data import create_json_data
 
-locale.setlocale(locale.LC_ALL, ('ru_RU', 'UTF-8'))
 
+locale.setlocale(locale.LC_ALL, ('ru_RU', 'UTF-8'))
 file_path = "jdata.json"
+today = datetime.today()
 
 if os.path.exists(file_path):
     with open('jdata.json', 'r') as file:
@@ -20,6 +20,7 @@ else:
 
 
 def weather_parser():
+    """Функция которая запрашивает и формирует прогноз погоды"""
     global weather
 
     def get_weather():
@@ -41,28 +42,25 @@ def weather_parser():
 
 
 def get_weekday_date():
-    today = datetime.today()
+    """Функция возвращающая приветственное сообщение"""
     str_today = datetime.today().strftime('%A, %d').lower()
     str_day_month = str(today.month)
     return f'Добро пожаловать в отель Довиль! Сегодня {str_today} {open_data["monthes"][str_day_month]}'
 
 
-def get_week_info(week_type, weekday):
-    text = f'РАСПИСАНИЕ: Награждение - 19:30 | ' \
-                f'Детская вечерняя программа: {open_data[week_type][weekday][0]} - 19:45 | ' \
-                f'Взрослая вечерняя программа: {open_data[week_type][weekday][1]} - 20:30 | '
-    return text
-
-
 def get_show():
-    today = datetime.today()
+    """Функция возвращающая расписание"""
     weekday = today.strftime('%A').lower()
     number_week = today.isocalendar()[1]
     if number_week % 2 == 0:
         week_type = 'even_week'
     else:
         week_type = 'odd_week'
-    return get_week_info(week_type, weekday)
+
+    text = f'РАСПИСАНИЕ: Награждение - 19:30 | ' \
+           f'Детская вечерняя программа: {open_data[week_type][weekday][0]} - 19:45 | ' \
+           f'Взрослая вечерняя программа: {open_data[week_type][weekday][1]} - 20:30 | '
+    return text
 
 
 list_message = [get_weekday_date(), weather_parser(), get_show()]
