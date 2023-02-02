@@ -8,6 +8,7 @@ from parser import message, ads
 
 
 class myApp(QWidget):
+    """Класс реализующий бегущую строку"""
     def __init__(self, message, speed, start_point):
         QMainWindow.__init__(self)
         self.message = message
@@ -17,6 +18,7 @@ class myApp(QWidget):
         self.init_ui()
 
     def init_ui(self):
+        """Иницилизация основных параметров окна"""
         self.timer = QTimer(self)
         self.X = 2000
         self.Y = 50
@@ -26,12 +28,6 @@ class myApp(QWidget):
         self.setGeometry(0, self.start_point, self.X, self.Y)
         self.setStyleSheet("background-color: black")
         self.setWindowFlags(Qt.FramelessWindowHint)  # убрали шапку окна
-
-        # wallpaper = QImage("C:\\Users\\honor\\PycharmProjects\\pyqt5_led_scroll\\files\\wall5.jpg")
-        # sImage = wallpaper.scaled(QSize(self.X, self.Y))
-        # palette = QPalette()
-        # palette.setBrush(QPalette.Window, QBrush(sImage))
-        # self.setPalette(palette)
 
         self.label = QLabel(self.message, self)
         self.label.setStyleSheet('color: #085d69')
@@ -50,6 +46,7 @@ class myApp(QWidget):
             self.timer.timeout.connect(self.move_label_left)
 
     def move_label_left(self):
+        """Метод описывающий смещение текста в окне"""
         if self.label_x == -(self.length_message + self.X):
             self.label_x = self.X - 50
             self.label_x = self.label_x - 1
@@ -58,8 +55,17 @@ class myApp(QWidget):
             self.label_x = self.label_x - 1
             self.label.move(self.label_x, self.lable_y)
 
+    def set_wallpaper(self):
+        """Метод добавляющий фоновое изображение на бегущую строку"""
+        wallpaper = QImage("C:\\Users\\honor\\PycharmProjects\\pyqt5_led_scroll\\files\\wall5.jpg")
+        sImage = wallpaper.scaled(QSize(self.X, self.Y))
+        palette = QPalette()
+        palette.setBrush(QPalette.Window, QBrush(sImage))
+        self.setPalette(palette)
+
 
 class UserInterface(QMainWindow):
+    """Класс создающий окно для добавления объявления"""
     def __init__(self):
         super(UserInterface, self).__init__()
         self.init_ui()
@@ -68,8 +74,9 @@ class UserInterface(QMainWindow):
         self.send_command()
 
     def init_ui(self):
+        """Метод описывающий основные параметры окна"""
         self.X = 400
-        self.Y = 400
+        self.Y = 100
         self.setGeometry(300, 300, self.X, self.Y)
         self.setWindowTitle('Led roll')
         text = 'Добавьте объявление'
@@ -78,20 +85,24 @@ class UserInterface(QMainWindow):
         self.label.adjustSize()
 
     def create_send_btn(self):
+        """Метод реализующий кнопку для отправки объявления"""
         self.btn = QtWidgets.QPushButton('Отправить', self)
         self.btn.move(self.X // 2 - 50, 60)
         self.btn.setFixedSize(120, 22)
 
     def create_text_field(self):
+        """Метод реализующий поле для ввода текста объявления"""
         self.lineEdit = QtWidgets.QLineEdit(self)
         self.lineEdit.setGeometry(QRect(50, 30, 300, 20))
         self.lineEdit.setText("")
         self.lineEdit.setObjectName("lineEdit")
 
     def send_command(self):
+        """Метод реализующий действие по нажатию кнопки"""
         self.btn.clicked.connect(lambda: self.send_message_to_line(self.lineEdit.text().upper()))
 
     def send_message_to_line(self, message):
+        """Метод отправляющий объявление в бегущую строку"""
         ads_window.length_message = 15 * len(message)
         ads_window.label.setText(message)
         ads_window.label.adjustSize()
@@ -99,12 +110,16 @@ class UserInterface(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex_window = myApp(message, speed=15, start_point=0)
-    ex_window.show()
+
+    # реализация окон бегущих строк
+    ledline_window = myApp(message, speed=15, start_point=0)
+    ledline_window.show()
 
     if ads:
         ads_window = myApp(ads.upper(), speed=9, start_point=50)
         ads_window.show()
+
+    # реализация окна для ввода объявления
     ui_window = UserInterface()
     ui_window.show()
     sys.exit(app.exec_())
