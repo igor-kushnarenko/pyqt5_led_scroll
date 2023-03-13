@@ -4,7 +4,7 @@ from PyQt5.QtGui import QFont, QImage, QPalette, QBrush
 from PyQt5.QtCore import QTimer, Qt, QRect, QSize
 from PyQt5 import QtWidgets
 
-from parser import message, ads
+from pars import message, ads, message_from_db
 
 from scripts.db_edit import add_message_to_db
 
@@ -22,8 +22,8 @@ class myApp(QWidget):
     def init_ui(self):
         """Иницилизация основных параметров окна"""
         self.timer = QTimer(self)
-        self.X = 2000
-        self.Y = 50
+        self.X = 3000
+        self.Y = 90
         self.FONT_SIZE = 25
 
         self.setWindowTitle('Doville news')
@@ -51,10 +51,10 @@ class myApp(QWidget):
         """Метод описывающий смещение текста в окне"""
         if self.label_x == -(self.length_message + self.X):
             self.label_x = self.X - 50
-            self.label_x = self.label_x - 1
+            self.label_x = self.label_x - 5
             self.label.move(self.label_x, self.lable_y)
         else:
-            self.label_x = self.label_x - 1
+            self.label_x = self.label_x - 5
             self.label.move(self.label_x, self.lable_y)
 
     def set_wallpaper(self):
@@ -108,10 +108,13 @@ class UserInterface(QMainWindow):
         # добавление записи в БД
         add_message_to_db(message)
 
+        ads_window = myApp(message_from_db, speed=9, start_point=80)
+        ads_window.show()
+
         # отправляем сообщение в окно
-        ads_window.length_message = 15 * len(message)
-        ads_window.label.setText(message)
-        ads_window.label.adjustSize()
+        # ads_window.length_message = 15 * len(message)
+        # ads_window.label.setText(message)
+        # ads_window.label.adjustSize()
 
 
 if __name__ == '__main__':
@@ -121,10 +124,9 @@ if __name__ == '__main__':
     ledline_window = myApp(message, speed=15, start_point=0)
     ledline_window.show()
 
-    if ads:
-        # реализация окона бегущей строки с объявлениями
-        ads_window = myApp(ads.upper(), speed=9, start_point=50)
-        ads_window.show()
+    # реализация окона бегущей строки с объявлениями
+    ads_window = myApp(message_from_db, speed=1, start_point=80)
+    ads_window.show()
 
     # реализация окна для ввода объявления
     ui_window = UserInterface()

@@ -18,3 +18,10 @@ def delete_one_message_in_db(id):
     """Функция удаляющая необходимую запись в таблице"""
     row = LedLine.select().where(LedLine.id == id).get()
     row.delete_instance()
+
+
+def read_db():
+    row_list = []
+    for row in LedLine.select():
+        row_list.append(row.message)
+    return row_list

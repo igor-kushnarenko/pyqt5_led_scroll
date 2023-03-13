@@ -6,6 +6,7 @@ from datetime import datetime
 import pyowm
 
 from initial_data import create_json_data
+from scripts.db_edit import read_db
 
 
 locale.setlocale(locale.LC_ALL, ('ru_RU', 'UTF-8'))
@@ -73,3 +74,6 @@ list_ads = [
 
 message = ' | '.join(list_message)
 ads = ' | '.join(list_ads)
+
+m = read_db()
+message_from_db = ' | '.join(m)
