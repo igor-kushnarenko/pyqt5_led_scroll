@@ -20,8 +20,15 @@ def delete_one_message_in_db(id):
     row.delete_instance()
 
 
-def read_db():
+def read_db_how_string():
     row_list = []
     for row in LedLine.select():
         row_list.append(row.message)
+    return row_list
+
+
+def read_db_how_row():
+    row_list = []
+    for row in LedLine.select():
+        row_list.append(row)
     return row_list

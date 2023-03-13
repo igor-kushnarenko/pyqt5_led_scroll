@@ -111,11 +111,6 @@ class UserInterface(QMainWindow):
         ads_window = myApp(message_from_db, speed=9, start_point=80)
         ads_window.show()
 
-        # отправляем сообщение в окно
-        # ads_window.length_message = 15 * len(message)
-        # ads_window.label.setText(message)
-        # ads_window.label.adjustSize()
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
