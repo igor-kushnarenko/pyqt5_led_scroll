@@ -37,4 +37,4 @@ data = {
 }
 
 with open('jdata.json', 'w') as file:
-    json.dump(data, file, indent=4, ensure_ascii=False)
+    json.dump(data, file, indent=4, ensure_ascii=True)

@@ -5,7 +5,7 @@ from PyQt5.QtGui import QFont, QImage, QPalette, QBrush
 from PyQt5.QtCore import QTimer, Qt, QRect, QSize
 from PyQt5 import QtWidgets
 
-from parser import message, ads
+from pars import ads, message
 
 
 class myApp(QWidget):
@@ -110,7 +110,7 @@ class UserInterface(QMainWindow):
         ads_window.length_message = 15 * len(message)
         ads_window.label.setText(message)
         ads_window.label.adjustSize()
-        self.add_message_to_file(message)
+        # self.add_message_to_file(message)
 
     def add_message_to_file(self, message):
         """
@@ -128,10 +128,10 @@ class UserInterface(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    # ex_window = myApp(message, speed=15, start_point=0)
-    # ex_window.show()
-    # ads_window = myApp(ads.upper(), speed=9, start_point=75)
-    ads_window = myApp(ads.upper(), speed=9, start_point=0)
+    ex_window = myApp(message, speed=15, start_point=0)
+    ex_window.show()
+    ads_window = myApp(ads.upper(), speed=9, start_point=75)
+    # ads_window = myApp(ads.upper(), speed=9, start_point=0)
     ads_window.show()
     ui_window = UserInterface()
     ui_window.show()
